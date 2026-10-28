@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="theme-color" content="#1f5eff">
+<title>Rastreo GPS · Área segura</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8D%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="mapa" aria-label="Mapa de rastreo"></div>
+<div class="bordes-alarma" aria-hidden="true"></div>
+
+<header class="barra">
+  <div class="marca">
+    <span class="marca-icono" aria-hidden="true">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+    </span>
+    <div>
+      <h1>Rastreo GPS</h1>
+      <p>Control de área segura</p>
+    </div>
+  </div>
+  <div class="chip" id="chip"><span class="punto"></span><span id="estado">Conectando…</span></div>
+</header>
+
+<div id="alarma" class="alarma" role="alert" aria-live="assertive" hidden>
+  <span class="alarma-icono" aria-hidden="true">!</span>
+  <div class="alarma-texto">
+    <strong>FUERA DEL ÁREA ESTABLECIDA</strong>
+    <span id="alarmaDetalle"></span>
+  </div>
+  <button id="silenciar" type="button">Silenciar</button>
+</div>
+
+<section class="panel" id="panel">
+  <button class="panel-cabecera" id="panelBtn" type="button" aria-expanded="true" aria-controls="panelCuerpo">
+    <span class="panel-titulo">Área segura</span>
+    <span class="panel-resumen" id="resumen">Sin definir</span>
+    <span class="flecha" aria-hidden="true"></span>
+  </button>
+
+  <div class="panel-cuerpo" id="panelCuerpo">
+    <div class="radio-control">
+      <button class="paso" id="menos" type="button" aria-label="Reducir radio">−</button>
+      <div class="radio-valor"><output id="radioTxt">100</output><small>metros de radio</small></div>
+      <button class="paso" id="mas" type="button" aria-label="Aumentar radio">+</button>
+    </div>
+    <input id="radio" type="range" aria-label="Radio en metros">
+    <div class="presets" id="presets" role="group" aria-label="Radios rápidos">
+      <button type="button" data-m="50">50 m</button>
+      <button type="button" data-m="100">100 m</button>
+      <button type="button" data-m="200">200 m</button>
+      <button type="button" data-m="500">500 m</button>
+    </div>
+
+    <button class="principal" id="fijar" type="button">Fijar centro en el mapa</button>
+
+    <dl class="datos">
+      <div><dt>Distancia al centro</dt><dd id="dist">—</dd></div>
+      <div><dt>Satélites</dt><dd id="sats">—</dd></div>
+      <div><dt>HDOP</dt><dd id="hdop">—</dd></div>
+      <div><dt>Última lectura</dt><dd id="ultima">—</dd></div>
+    </dl>
+
+    <div class="opciones">
+      <button type="button" id="seguir" aria-pressed="false">Seguir</button>
+      <button type="button" id="verArea">Ver área</button>
+      <button type="button" id="sonido" aria-pressed="false">Sonido: no</button>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
